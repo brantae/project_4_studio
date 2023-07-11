@@ -1,4 +1,6 @@
 class User < ApplicationRecord
-    has many :lessons
-    has many :teachers, through: :lessons
+    has_many :lessons
+    has_many :teachers, through: :lessons
+
+
 end

@@ -1,4 +1,6 @@
 class Lesson < ApplicationRecord
-    belongs to :teacher 
-    belongs to :user
+    belongs_to :teacher 
+    belongs_to :user
+
+
 end
