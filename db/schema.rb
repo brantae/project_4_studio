@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_210950) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_11_221955) do
   create_table "lessons", force: :cascade do |t|
     t.integer "room_num"
-    t.datetime "time"
+    t.datetime "start_time"
     t.string "repeat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "class_length"
   end
 
   create_table "teachers", force: :cascade do |t|
