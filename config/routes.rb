@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  resources :users, :teachers
+
+  resources :teachers, only: [:index, :show]
+  # resources :lessons 
+
 end
