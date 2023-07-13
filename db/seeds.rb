@@ -3,18 +3,27 @@ User.destroy_all
 
 puts "🌱 Seeding..."
 
-Teacher.create(
+# Teacher seeds
+teacher1 = Teacher.create(
     name: "Alyssa Edwards", 
     specialty: "jazz", 
     description: "A fun, Fosse-style jazz class that will have you singing along to all the showtunes!")
-Teacher.create(
+teacher2 = Teacher.create(
     name: "Blair St. Clair", 
     specialty: "ballet", 
     description: "Intermediate/advanced ballet focused on technique and pas de deux.")
-Teacher.create(
+teacher3 = Teacher.create(
     name: "Miss Naomi", 
     specialty: "hip-hop", 
     description: "Old school hip-hop and breakdancing where you will sweat buckets!")
+
+# User seeds 
+
+# user1 = User.create(
+# )
+# user2 = User.create()
+# user3 = User.create()
+
 
 # time_format = "%I:%M %p"
 
