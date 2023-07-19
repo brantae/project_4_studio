@@ -19,27 +19,33 @@ teacher3 = Teacher.create(
 
 # User seeds 
 
-# user1 = User.create(
-# )
-# user2 = User.create()
-# user3 = User.create()
+user1 = User.create(name: 'Debra')
+user2 = User.create(name: 'Karen')
+user3 = User.create(name: 'Carol')
+
+# Lesson seeds
+
+#time_format = "%I:%M %p"
+
+time1 = DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 12, 30, 0)
+formatted_time1 = time1.strftime("%I:%M %p")
+
+time2 = DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 18, 0, 0)
+formatted_time1 = time1.strftime("%I:%M %p")
+
+time3 = DateTime.new(DateTime.now.year, DateTime.now.month, DateTime.now.day, 8, 0, 0)
+formatted_time1 = time1.strftime("%I:%M %p")
 
 
-# time_format = "%I:%M %p"
 
-# lesson_data = [
-#     {room_num: 1, time: '10:30 AM', repeat: "weekly", class_length: 60},
-#     {room_num: 1, time: '2:00 PM', repeat: "daily", class_length: 120},
-#     {room_num: 3, time: '8:15 PM', repeat: "weekly", class_length: 45}
-# ]
+Lesson.create(user_id: user1.id, teacher_id: teacher1.id, room_num: 4, start_time: time1, repeat: 'daily', class_length: 60)
+Lesson.create(user_id: user1.id, teacher_id: teacher2.id, room_num: 6, start_time: time2, repeat: 'weekly', class_length: 60)
+Lesson.create(user_id: user2.id, teacher_id: teacher1.id, room_num: 4, start_time: time1, repeat: 'weekly', class_length: 45)
+Lesson.create(user_id: user3.id, teacher_id: teacher3.id, room_num: 5, start_time: time3, repeat: 'bi-weekly', class_length: 120)
 
 
 
-# lesson_data.each do |lesson|
-#     parsed_time = Time.strptime(lesson[:time], time_format)
-#     Lesson.create(room_num: lesson[:room_num], start_time: parsed_time, repeat: lesson[:repeat], class_length: lesson[:class_length])
 
-# end
 
 
 
