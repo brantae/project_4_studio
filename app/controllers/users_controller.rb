@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
     def index 
         users = User.all 
         render json: users, except: [:created_at, :updated_at]
@@ -9,11 +10,20 @@ class UsersController < ApplicationController
         render json: user, except: [:created_at, :updated_at]
     end
 
+    def create 
+        user = User.create(user_params)
+        if user.valid?
+            render json: user, status: :created 
+        else
+            render json: { error: user.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
     private 
 
     #strong params 
     def user_params 
-        params.permit(:username, :password)
+        params.permit(:name, :username, :password)
     end
     
 end
