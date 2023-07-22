@@ -24,17 +24,17 @@ teacher3 = Teacher.create(
 
 user1 = User.create!(
     name: 'Debra', 
-    username: 'dsmith', 
+    username: 'dsmith@gmail.com', 
     password: '123')
 
 user2 = User.create!(
     name: 'Karen', 
-    username: 'kmiller', 
+    username: 'kmiller@gmail.com', 
     password: '456')
 
 user3 = User.create!(
     name: 'Carol', 
-    username: 'cjones', 
+    username: 'cjones@yahoo.com', 
     password: '789')
 
 # Lesson seeds

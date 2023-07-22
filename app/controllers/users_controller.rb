@@ -5,11 +5,6 @@ class UsersController < ApplicationController
         render json: users, except: [:created_at, :updated_at]
     end
 
-    def show 
-        user = User.find(params[:id])
-        render json: user, except: [:created_at, :updated_at]
-    end
-
     def create 
         user = User.create(user_params)
         if user.valid?
