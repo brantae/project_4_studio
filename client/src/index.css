@@ -104,6 +104,10 @@ nav {
   margin: -96px;
 }
 
+.login-form .ui.checkbox input[type="checkbox"] {
+  margin: -96px;
+}
+
 
 
 

@@ -20,7 +20,7 @@ function SignUp() {
                 <label>username</label>
                 <input
                 type="email"
-                placeholder="use email for user"
+                placeholder="username (email address)"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 />
