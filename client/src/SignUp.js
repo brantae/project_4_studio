@@ -3,19 +3,31 @@ import { Form, Button, Checkbox } from 'semantic-ui-react';
 
 function SignUp() {
 
+    const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
     function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
     console.log(event)
 
-    };
+        
+
+    }
     
     return (
     <div className = 'signup-form'>
         <Form onSubmit={handleSubmit}>
+        <Form.Field className="input-field">
+                <label>full name</label>
+                <input
+                type="text"
+                placeholder="full name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                />
+                </Form.Field>
             <Form.Field className="input-field">
                 <label>username</label>
                 <input
