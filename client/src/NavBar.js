@@ -7,7 +7,9 @@ function NavBar() {
     return (
 
 <nav className = 'nav'>
-        <Link to="/"> login </Link>
+        <Link to="/"> home </Link>
+        <Link to="/login"> login </Link>
+        <Link to="/sign_up"> signup </Link>
 </nav>
     )
 }

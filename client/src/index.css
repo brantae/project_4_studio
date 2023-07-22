@@ -14,8 +14,17 @@ code {
 
 nav {
   display: flex;
-  background: hwb(298 57% 0%);
-  padding: 8px 20px;
+  background: hwb(93 70% 13%);
+  padding: 20px 40px;
   position: sticky;
   top: 0
+}
+
+.nav a {
+  color: rgb(0, 0, 0);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+  font-size: large;
 }

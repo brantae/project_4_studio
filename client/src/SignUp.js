@@ -4,7 +4,7 @@ function SignUp() {
     
     return (
     <div>
-        <p> hi </p>
+        <p> sign up here </p>
     </div>
     
     )

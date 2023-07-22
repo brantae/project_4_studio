@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import NavBar from './NavBar';
 import LogIn from './LogIn';
 import Error from "./Error";
+import SignUp from './SignUp';
+import Home from './Home';
 
 function App() {
 
@@ -17,7 +19,9 @@ console.log(window.React1 === window.React2);
       <Router>
         <NavBar />
         <Routes>
-          <Route exact path="/" element = {<LogIn />} />
+          <Route exact path="/" element = {<Home />} />
+          <Route exact path="/login" element = {<LogIn />} />
+          <Route exact path="/sign_up" element = {<SignUp />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
