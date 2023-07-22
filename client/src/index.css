@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
@@ -28,3 +29,81 @@ nav {
   padding: .25rem;
   font-size: large;
 }
+
+.login-form {
+  display: flex;
+  justify-content: left;
+  align-items: top;
+  height: 100vh;
+  margin: 0;
+  padding: 10px
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 75%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.login-form button {
+  display: block;
+  width: 80%;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: #6fa8e6;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.signup-form {
+  display: flex;
+  justify-content: left;
+  align-items: top;
+  height: 100vh;
+  margin: 0;
+  padding: 10px
+}
+
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+  width: 75%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.signup-form button {
+  display: block;
+  width: 80%;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: #6fa8e6;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.input-field input {
+  width: 75%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signup-form .ui.checkbox input[type="checkbox"] {
+  margin: -96px;
+}
+
+
+
+

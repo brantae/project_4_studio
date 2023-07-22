@@ -3,17 +3,18 @@ import { Form, Button } from 'semantic-ui-react';
 
 function LogIn() {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
     console.log(event)
 
-    };
+    }
 
     
     return (
+        <div className = 'login-form'> 
         <Form onSubmit={handleSubmit}>
         <Form.Field>
             <label>username</label>
@@ -35,7 +36,7 @@ function LogIn() {
         </Form.Field>
         <Button type="submit">login</Button>
         </Form>
-    
+        </div>
     )
 }
 
