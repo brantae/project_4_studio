@@ -26,7 +26,7 @@ nav {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: .25rem;
+  padding: .50rem;
   font-size: large;
 }
 
@@ -36,7 +36,7 @@ nav {
   align-items: top;
   height: 100vh;
   margin: 0;
-  padding: 10px
+  padding: 20px
 }
 
 .login-form input[type="email"],
@@ -67,7 +67,7 @@ nav {
   align-items: top;
   height: 100vh;
   margin: 0;
-  padding: 10px
+  padding: 20px
 }
 
 .signup-form input[type="email"],
@@ -108,6 +108,24 @@ nav {
   margin: -96px;
 }
 
+.booking-form {
+  
+  display: flex;
+  justify-content: left;
+  align-items: top;
+  height: 100vh;
+  margin: 0;
+  padding: 20px
+}
+
+.home-page {
+  padding: 20px;
+}
+
+.booking-header {
+  padding: 20px;
+  padding-bottom: 0px;
+}
 
 
 

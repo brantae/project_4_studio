@@ -7,6 +7,7 @@ import LogIn from './LogIn';
 import Error from "./Error";
 import SignUp from './SignUp';
 import Home from './Home';
+import BookLesson from './BookLesson';
 
 function App() {
 
@@ -22,6 +23,7 @@ console.log(window.React1 === window.React2);
           <Route exact path="/" element = {<Home />} />
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
+          <Route exact path="/book" element = {<BookLesson />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
