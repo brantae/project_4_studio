@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
 }
 
 code {
@@ -16,7 +15,7 @@ code {
 nav {
   display: flex;
   background: hwb(93 70% 13%);
-  padding: 20px 40px;
+  padding: 30px 50px;
   position: sticky;
   top: 0
 }
@@ -26,8 +25,13 @@ nav {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: .50rem;
-  font-size: large;
+  padding: 1rem;
+  font-size: 40px;
+}
+
+.nav a:hover {
+  background-color: #f0f0f0; 
+  color: #db3fb9; 
 }
 
 .login-form {
@@ -43,7 +47,7 @@ nav {
 .login-form input[type="password"] {
   width: 75%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
