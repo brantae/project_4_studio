@@ -4,9 +4,11 @@ class User < ApplicationRecord
     has_many :lessons
     has_many :teachers, through: :lessons
 
-    validates :name, presence: true
-    validates :username, presence: true, uniqueness: true
-    validates :password, presence: true
+    validates :name, :password, presence: true
+    validates :username, presence: true
+    validates :username, uniqueness: {
+        message: "is already taken"
+    }
 
 
 end

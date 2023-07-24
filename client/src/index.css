@@ -118,13 +118,39 @@ nav {
   padding: 20px
 }
 
-.home-page {
-  padding: 20px;
-}
-
 .booking-header {
   padding: 20px;
   padding-bottom: 0px;
+}
+
+.home-page {
+  text-align: center;
+  margin: 0 auto; 
+  padding: 0; 
+  background-image: url('../src/images/image1.jpg'); 
+  background-size: cover; 
+  background-position: center top; 
+  background-attachment: scroll;
+  height: 100vh;
+  padding-top: 300px;
+}
+
+.home-page h1 {
+  font-size: 75px;
+  text-align: center;
+  padding: 20px;
+  -webkit-text-stroke: 2px #000000;
+  color: white;
+  position: relative;
+}
+
+.home-page h2 {
+  font-size: 32px;
+  padding: 20px;
+  display: inline-block;
+  background-color: white;
+  width: 1500px;
+  position: relative;
 }
 
 
