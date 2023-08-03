@@ -43,7 +43,7 @@ function LogIn() {
                 />
             </Form.Field>
         </Form.Field>
-            <Button type="submit">sign up!</Button>
+            <Button type="submit">log in!</Button>
         </Form>
         </div>
     )
