@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
-
-    def index 
-        users = User.all 
-        render json: users, except: [:created_at, :updated_at]
-    end
+    skip_before_action :authorize, only: :create
 
     def create 
         user = User.create(user_params)
