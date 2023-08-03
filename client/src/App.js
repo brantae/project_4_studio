@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import NavBar from './NavBar';
 import LogIn from './LogIn';
@@ -14,6 +14,14 @@ function App() {
   require('react-dom');
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/lessons')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+    }, [])
 
   return (
     <div className="App">
