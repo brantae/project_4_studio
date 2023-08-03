@@ -8,9 +8,8 @@ function NavBar() {
 
 <nav className = 'nav'>
         <Link to="/"> home </Link>
-        <Link to="/login"> login </Link>
-        <Link to="/sign_up"> signup </Link>
         <Link to="/book"> book lesson </Link>
+        <Link to="/manage"> manage lessons </Link>
 </nav>
     )
 }
