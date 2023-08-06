@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Checkbox } from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
 
 function SignUp() {
 
@@ -56,6 +57,7 @@ function SignUp() {
         </Form.Field>
             <Button type="submit">sign up!</Button>
         </Form>
+        <p>already have an account? <Link to='/login'>log in!</Link></p>
     </div>
     )
 }
