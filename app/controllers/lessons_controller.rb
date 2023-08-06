@@ -1,11 +1,12 @@
 class LessonsController < ApplicationController
-    skip_before_action :authorize, only: :show
+    skip_before_action :authorize, only: :index
 
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index 
         lessons = Lesson.all 
+        puts JSON.pretty_generate(lessons.as_json)
         render json: lessons
     end 
 
