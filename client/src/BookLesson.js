@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form, Input, Button, Dropdown } from 'semantic-ui-react'
-import LogIn from './LogIn'
+import { Link } from 'react-router-dom'
+import { AuthContext } from './contexts/AuthContext'
 
 function BookLesson() {
     
+
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -12,6 +14,19 @@ function BookLesson() {
         teacher: '',
         lessonTime: '',
         })
+
+        const { isAuthenticated } = useContext(AuthContext)
+    
+        if (!isAuthenticated) {
+            return (
+                <div>
+                    <h1>want to book a lesson?</h1>
+                    <div>
+                    please <Link to="/login">log in</Link> to access this page.
+                    </div>
+                </div>
+            )
+        }
 
     const roomOptions = [
         { key: '1', text: '1', value: '1' },

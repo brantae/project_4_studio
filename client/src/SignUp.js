@@ -12,9 +12,10 @@ function SignUp() {
     function handleSubmit(event) {
     event.preventDefault()
     console.log(event)
+    }
 
+    function handleSignup() {
         
-
     }
     
     return (
@@ -55,7 +56,10 @@ function SignUp() {
                 />
             </Form.Field>
         </Form.Field>
-            <Button type="submit">sign up!</Button>
+            <Button 
+            type="submit"
+            primary 
+            onClick={handleSignup}>sign up!</Button>
         </Form>
         <p>already have an account? <Link to='/login'>log in!</Link></p>
     </div>

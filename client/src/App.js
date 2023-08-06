@@ -8,7 +8,7 @@ import Error from "./Error";
 import SignUp from './SignUp';
 import Home from './Home';
 import BookLesson from './BookLesson';
-import { useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
 
@@ -35,6 +35,7 @@ console.log(window.React1 === window.React2);
 
   return (
     <div className="App">
+      <AuthProvider>
       <Router>
         <NavBar />
         <Routes>
@@ -45,6 +46,7 @@ console.log(window.React1 === window.React2);
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
+      </AuthProvider>
     </div>
   );
 }

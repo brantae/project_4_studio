@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 
-const AuthContext = React.createContext()
+const AuthContext = createContext()
 
-export function useAuth(){
-    return useContext(AuthContext)
-}
 
-export function AuthProvider(props) {
+function AuthProvider({children}) {
     
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+    function login() {
+        setIsLoggedIn(true)
+    }
 
-    const value = {
-        isLoggedIn,
-        setIsLoggedIn
+    function logout() {
+        setIsLoggedIn(false)
     }
 
     return (
-        /*
-        the children will have access to the properties in the value object
-        */
-        <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+        {children}
+      </AuthContext.Provider>
     )
 }
+
+export { AuthContext, AuthProvider }

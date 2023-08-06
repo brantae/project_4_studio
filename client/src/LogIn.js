@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
+import { AuthContext } from "./contexts/AuthContext";
 
 function LogIn() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+
+    const { login } = useContext(AuthContext)
+
+    function handleLogin() {
+        login(true)
+    }
 
     function handleSubmit(event) {
     event.preventDefault()
@@ -44,7 +51,10 @@ function LogIn() {
                 />
             </Form.Field>
         </Form.Field>
-            <Button type="submit">log in!</Button>
+            <Button 
+            type="submit"
+            primary
+            onClick={handleLogin}>log in!</Button>
         </Form>
         <p>haven't made an account? <Link to='/sign_up'>sign up!</Link></p>
         </div>
