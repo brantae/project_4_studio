@@ -8,6 +8,8 @@ import Error from "./Error";
 import SignUp from './SignUp';
 import Home from './Home';
 import BookLesson from './BookLesson';
+import Lessons from './Lessons';
+import Bookings from './Bookings';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
@@ -43,6 +45,8 @@ console.log(window.React1 === window.React2);
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
           <Route exact path="/book" element = {<BookLesson />}/>
+          <Route exact path="/lessons" element = {<Lessons />}/>
+          <Route exact path="/manage" element = {<Bookings />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
