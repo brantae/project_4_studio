@@ -1,17 +1,16 @@
 class TeachersController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
+    skip_before_action :authorize, only: :index
 
     def index 
         teachers = Teacher.all 
-        render json: teachers, except: [:created_at, :updated_at]
+        render json: teachers
     end
 
     def show 
         teacher = Teacher.find(params[:id])
-        if teacher
-        render json: teacher, except: [:created_at, :updated_at]
-        else
-            render_not_found_response
-        end
+        render json: teacher
     end
 
     private
