@@ -6,7 +6,6 @@ class LessonsController < ApplicationController
 
     def index 
         lessons = Lesson.all 
-        puts JSON.pretty_generate(lessons.as_json)
         render json: lessons
     end 
 

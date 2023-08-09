@@ -1,42 +1,31 @@
 import React, { useState, useEffect } from 'react'
 
-export default function Lessons() {
+export default function Lessons({ lessons, setLessons }) {
 
-    const [lessons, setLessons] = useState([])
+    function formatTime(str) {
+        const date = new Date(str)
+        const hours = date.getHours()
+        const minutes = date.getMinutes()
+        const ampm = hours >= 12 ? 'PM' : 'AM'
 
-    useEffect(() => {
-        const fetchLessons = () => {
-            fetch('/lessons', {
-                cache: 'no-cache',
-                headers: {
-                  pragma: 'no-cache',
-                },
-              })
-            .then((res) => {
-                console.log(res)
-                return res.json()
-            })
-            .then((data) => {
-                console.log(data)
-                setLessons(data)
-            })
-            .catch((error) => console.error('Error fetching Lessons:', error));
-        }
+        const formattedHours = hours % 12 || 12
+        const formattedMinutes = minutes.toString().padStart(2, '0')
 
-        fetchLessons()
-    }, [])
+        return `${formattedHours}:${formattedMinutes}`
+    }
 
 
   return (
     <div>
-        <h2>Lessons</h2>
-        <ul>
-            {lessons.map((lesson) => {
-                <li key={lesson.id}>
-                    <strong>{lesson.title}</strong>
-                </li>
-            })}
-        </ul>
+        <h1>Here is a list of currently booked lessons by our users below</h1>
+      {lessons.map(lesson => (
+        <div key={lesson.id}>
+            <h2>{lesson.teacher.specialty} class</h2>
+            <p>taught by: {lesson.teacher.name}</p>
+            <p>repeats {lesson.repeat} at {formatTime(lesson.start_time)} for {lesson.class_length} minutes</p>
+            <hr></hr>
+            </div>
+      ))}
     </div>
   )
 }

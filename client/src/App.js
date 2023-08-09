@@ -20,16 +20,24 @@ console.log(window.React1 === window.React2);
 
 
 
-    // useEffect(() => {
-    //     fetch('http://localhost:3001/auth')
-    //     .then(res => {
-    //       if(res.ok){
-    //         res.json().then(user => setCurrentUser(user))
-    //       }
-    //     })
-    // }, [])
+const [lessons, setLessons] = useState([])
 
+useEffect(() => {
+    const fetchLessons = () => {
+        fetch('/lessons')
+        .then((res) => {
+            console.log(res)
+            return res.json()
+        })
+        .then((data) => {
+            console.log(data)
+            setLessons(data)
+        })
+        .catch((error) => console.error('Error fetching Lessons:', error));
+    }
 
+    fetchLessons()
+}, [])
 
 
 
@@ -45,7 +53,7 @@ console.log(window.React1 === window.React2);
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
           <Route exact path="/book" element = {<BookLesson />}/>
-          <Route exact path="/lessons" element = {<Lessons />}/>
+          <Route exact path="/lessons" element = {<Lessons lessons={lessons} setLessons={setLessons} />}/>
           <Route exact path="/manage" element = {<Bookings />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>

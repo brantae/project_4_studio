@@ -4,14 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Home() {
 
-
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/lessons')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         console.log(data)
-    //     })
-    // }, [])
+    
     
     return (
     <div className="home-page">
