@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Form, Input, Button, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from './contexts/AuthContext'
+import { UserContext } from './contexts/UserContext'
 
 function BookLesson() {
     
@@ -15,9 +15,9 @@ function BookLesson() {
         lessonTime: '',
         })
 
-        const { isAuthenticated } = useContext(AuthContext)
+        const { isLoggedIn } = useContext(UserContext)
     
-        if (!isAuthenticated) {
+        if (!isLoggedIn) {
             return (
                 <div>
                     <h1>want to book a lesson?</h1>

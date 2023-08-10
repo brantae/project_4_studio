@@ -1,25 +1,49 @@
 import React, { useContext, useState } from "react";
 import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
-import { AuthContext } from "./contexts/AuthContext";
+import { UserContext } from "./contexts/UserContext";
 
 function LogIn() {
 
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
-    const { login } = useContext(AuthContext)
-
-    function handleLogin() {
-        login(true)
-    }
+    const { login } = useContext(UserContext)
 
     function handleSubmit(event) {
-    event.preventDefault()
-    console.log(event)
-
-    }
+        event.preventDefault()
+        fetch('/login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 
+                username: username, 
+                password: password }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                return response.json();
+                } else if (response.status === 422) {
+                return response.json().then((responseJson) => {
+                    setError(responseJson.errors.join(', '));
+                  throw new Error('Validation error'); // Throwing error to go to the catch block
+                });
+                } else {
+                setError('Login failed. Please check your credentials.');
+                throw new Error('Login failed');
+                }
+            })
+            .then((userData) => {
+              // Call the login function from the context
+              login(userData); // Assuming the login function handles setting user data
+            })
+            .catch((error) => {
+                setError('An error occurred during login.');
+            });
+        }
 
     
     return (
@@ -28,10 +52,10 @@ function LogIn() {
             <Form.Field className="input-field">
                 <label>username</label>
                 <input
-                type="email"
-                placeholder="username (email address)"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="username"
+                placeholder="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Field>
         <Form.Field className="input-field">
@@ -54,7 +78,7 @@ function LogIn() {
             <Button 
             type="submit"
             primary
-            onClick={handleLogin}>log in!</Button>
+            >log in!</Button>
         </Form>
         <p>haven't made an account? <Link to='/sign_up'>sign up!</Link></p>
         </div>

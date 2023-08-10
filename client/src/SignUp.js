@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button, Checkbox } from 'semantic-ui-react';
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { UserContext } from "./contexts/UserContext";
 
 function SignUp() {
 
@@ -8,15 +9,39 @@ function SignUp() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [errorsList, setErrorsList] = useState([])
+    const navigate = useNavigate()
+
+    const { signup } = useContext(UserContext)
 
     function handleSubmit(event) {
     event.preventDefault()
-    console.log(event)
+    fetch('http://localhost:3000/sign_up', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            fullName: fullName,
+            email: email,
+            password: password
+        })
+    })
+    .then(res => res.json())
+    .then(user => {
+        if (!user.errors) {
+            signup(user)
+            navigate('/')
+        } else {
+            setFullName('')
+            setEmail('')
+            setPassword('')
+            const errorList = user.errors.map(e => <li>{e}</li>)
+            setErrorsList(errorList)
+        }
+    })
     }
 
-    function handleSignup() {
-        
-    }
     
     return (
     <div className = 'signup-form'>
@@ -59,8 +84,11 @@ function SignUp() {
             <Button 
             type="submit"
             primary 
-            onClick={handleSignup}>sign up!</Button>
+                >sign up!</Button>
         </Form>
+        <ul>
+            {errorsList}
+        </ul>
         <p>already have an account? <Link to='/login'>log in!</Link></p>
     </div>
     )

@@ -10,7 +10,7 @@ import Home from './Home';
 import BookLesson from './BookLesson';
 import Lessons from './Lessons';
 import Bookings from './Bookings';
-import { AuthProvider } from './contexts/AuthContext';
+import { UserProvider } from './contexts/UserContext';
 
 function App() {
 
@@ -18,9 +18,10 @@ function App() {
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
-
-
 const [lessons, setLessons] = useState([])
+
+
+
 
 useEffect(() => {
     const fetchLessons = () => {
@@ -41,11 +42,13 @@ useEffect(() => {
 
 
 
+
+
     
 
   return (
     <div className="App">
-      <AuthProvider>
+      <UserProvider>
       <Router>
         <NavBar />
         <Routes>
@@ -58,7 +61,7 @@ useEffect(() => {
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
-      </AuthProvider>
+      </UserProvider>
     </div>
   );
 }
