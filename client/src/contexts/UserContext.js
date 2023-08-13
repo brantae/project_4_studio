@@ -15,7 +15,7 @@ function UserProvider({children}) {
             if (data.error) {
                 setIsLoggedIn(false)
             } else {
-              setIsLoggedIn(true)
+                setIsLoggedIn(true)
             }
         }) 
     }, [])

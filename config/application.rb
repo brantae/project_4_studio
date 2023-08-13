@@ -27,6 +27,8 @@ module Project4Studio
 
     config.action_dispatch.cookies_same_site_protection = :strict
 
+    #config.action_controller.forgery_protection_origin_check = false
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'http://localhost:3000', 'http://localhost:3001'

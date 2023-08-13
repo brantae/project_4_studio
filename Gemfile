@@ -7,7 +7,7 @@ gem 'byebug', '~> 11.1', '>= 11.1.3'
 
 gem 'faker'
 
-gem 'rack-cors'
+gem 'rack-cors', :require => 'rack/cors'
 
 gem 'active_model_serializers'
 

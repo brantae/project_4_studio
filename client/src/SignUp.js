@@ -5,8 +5,8 @@ import { UserContext } from "./contexts/UserContext";
 
 function SignUp() {
 
-    const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [errorsList, setErrorsList] = useState([])
@@ -22,8 +22,8 @@ function SignUp() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            fullName: fullName,
-            email: email,
+            name: name,
+            username: username,
             password: password
         })
     })
@@ -33,8 +33,8 @@ function SignUp() {
             signup(user)
             navigate('/')
         } else {
-            setFullName('')
-            setEmail('')
+            setName('')
+            setUsername('')
             setPassword('')
             const errorList = user.errors.map(e => <li>{e}</li>)
             setErrorsList(errorList)
@@ -51,8 +51,8 @@ function SignUp() {
                 <input
                 type="text"
                 placeholder="full name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 />
                 </Form.Field>
             <Form.Field className="input-field">
@@ -60,8 +60,8 @@ function SignUp() {
                 <input
                 type="email"
                 placeholder="username (email address)"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Field>
         <Form.Field className="input-field">

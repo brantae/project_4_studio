@@ -29,7 +29,7 @@ function NavBar() {
         <Link to="/book"> book lesson </Link>
         <Link to="/manage"> manage bookings </Link>
 
-        <h2> hello {user.username} </h2>
+        <h2> hello {user.name} </h2>
         <button onClick={logoutUser}>logout</button>
         </nav>
         )

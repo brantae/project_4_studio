@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :teachers
   resources :lessons
+  resources :users
   
   post '/sign_up', to: 'users#create'
   get '/me', to: 'users#show'
