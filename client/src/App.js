@@ -44,29 +44,34 @@ function handleUpdateTime(lessonId, newTime) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ start_time: newTime }),
+    body: JSON.stringify({
+      lesson: {
+        start_time: newTime
+      }
+    }),
   })
     .then(response => response.json())
     .then(updatedLesson => {
-      const updatedLessons = lessons.map(lesson =>
-        lesson.id === updatedLesson.id ? updatedLesson : lesson
-      );
-      setLessons(updatedLessons);
+      setLessons(prevLessons => {
+        return prevLessons.map(lesson => {
+          if (lesson.id === updatedLesson.id) {
+            return { ...lesson, start_time: updatedLesson.start_time };
+          }
+          return lesson;
+        });
+      });
     })
-}
-
+  }
 
 function handleCancelLesson(lessonId) {
   fetch(`/lessons/${lessonId}`, {
-    method: 'DELETE',
+    method: 'DELETE'
   })
-    .then(response => {
-      if (response.ok) {
-        const updatedLessons = lessons.filter(lesson => lesson.id !== lessonId);
-        setLessons(updatedLessons);
-      } else {
-        throw new Error('Failed to cancel lesson');
-      }
+    .then(() => {
+      const updatedLessons = lessons.filter(lesson =>
+        lesson.id !== lessonId
+      );
+      setLessons(updatedLessons);
     })
 }
 
