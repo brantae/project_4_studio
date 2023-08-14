@@ -14,32 +14,43 @@ import { Card, Header, Icon } from 'semantic-ui-react'
 
   return (
     <div>
-        <h1>See a list of our current teachers and some of their students</h1>
       
-        <Header as="h2" icon textAlign="center">
+      <Header as="h2" icon textAlign="center">
         <Icon name="users" circular />
         <Header.Content>Teachers List</Header.Content>
       </Header>
       <Card.Group itemsPerRow={3}>
-        {teachers.map((teacher) => (
-          <Card key={teacher.id}>
-            <Card.Content>
-              <Card.Header>{teacher.name}</Card.Header>
-              <Card.Meta>{teacher.specialty}</Card.Meta>
-              <Card.Description>{teacher.description}</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-            <Header as="h4">Current Students</Header>
-        <ul>
-          {teacher.users.map((student) => (
-            <li key={student.id}>{student.name}</li>
-          ))}
-        </ul>
-            </Card.Content>
-          </Card>
-        ))}
+        {teachers.map((teacher) => {
+          
+          const uniqueStudents = new Set()
+          teacher.users.forEach((user) => {
+            if (user.name && user.id) {
+              uniqueStudents.add(user.name)
+            }
+          })
+          const uniqueStudentNames = Array.from(uniqueStudents)
+
+          return (
+            <Card key={teacher.id}>
+              <Card.Content>
+                <Card.Header>{teacher.name}</Card.Header>
+                <Card.Meta>{teacher.specialty}</Card.Meta>
+                <Card.Description>{teacher.description}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <Header as="h4">current students</Header>
+                <ul>
+                  {uniqueStudentNames.map((studentName) => (
+                    <li key={studentName}>{studentName}</li>
+                  ))}
+                </ul>
+              </Card.Content>
+            </Card>
+          );
+        })}
       </Card.Group>
     </div>
+
   )
 }
 
