@@ -23,6 +23,15 @@ class LessonsController < ApplicationController
         render json: lesson, status: :accepted
     end
 
+    def update 
+        
+    end
+
+    def destroy 
+        lesson = Lesson.find_by(id: params[:id])
+        lesson.destroy
+    end
+
     private
 
     def lesson_params 

@@ -38,8 +38,37 @@ useEffect(() => {
     fetchLessons()
 }, [])
 
+function handleUpdateTime(lessonId, newTime) {
+  fetch(`/lessons/${lessonId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ start_time: newTime }),
+  })
+    .then(response => response.json())
+    .then(updatedLesson => {
+      const updatedLessons = lessons.map(lesson =>
+        lesson.id === updatedLesson.id ? updatedLesson : lesson
+      );
+      setLessons(updatedLessons);
+    })
+}
 
 
+function handleCancelLesson(lessonId) {
+  fetch(`/lessons/${lessonId}`, {
+    method: 'DELETE',
+  })
+    .then(response => {
+      if (response.ok) {
+        const updatedLessons = lessons.filter(lesson => lesson.id !== lessonId);
+        setLessons(updatedLessons);
+      } else {
+        throw new Error('Failed to cancel lesson');
+      }
+    })
+}
 
 
     
@@ -58,7 +87,9 @@ useEffect(() => {
           <Route exact path="/manage" element = 
           {<ManageBookings 
           lessons={lessons} 
-          setLessons={setLessons} />}/>
+          setLessons={setLessons}
+          handleUpdateTime={handleUpdateTime}
+          handleCancelLesson={handleCancelLesson} />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
