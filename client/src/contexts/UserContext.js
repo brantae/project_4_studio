@@ -1,45 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const UserContext = React.createContext()
 
 function UserProvider({children}) {
     
-    const [user, setUser] = useState({})
+    const [currentUser, setCurrentUser] = useState({})
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     useEffect(() => {
         fetch('/me')
         .then(resp => resp.json())
         .then(data => {
-            setUser(data)
             if (data.error) {
-                setIsLoggedIn(false)
+            setIsLoggedIn(false)
+            setCurrentUser({})
             } else {
-                setIsLoggedIn(true)
+            setIsLoggedIn(true)
+            setCurrentUser(data)
             }
         }) 
     }, [])
 
 
     function login(user) {
-        setUser(user)
+        setCurrentUser(user)
         setIsLoggedIn(true)
     }
 
     function logout() {
-        setUser({})
+        setCurrentUser({})
         setIsLoggedIn(false)
     }
 
     function signup(user) {
-        setUser(user)
+        setCurrentUser(user)
         setIsLoggedIn(true)
     }
 
 
 
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, isLoggedIn }}>
+        <UserContext.Provider value={{ currentUser, login, logout, signup, isLoggedIn }}>
         {children}
         </UserContext.Provider>
     )

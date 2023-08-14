@@ -4,6 +4,10 @@ class LessonsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
+    wrap_parameters :lesson, include: [:room_num, :start_time, :teacher_id]
+
+
+
     def index 
         lessons = Lesson.all 
         render json: lessons
@@ -16,13 +20,13 @@ class LessonsController < ApplicationController
 
     def create 
         lesson = Lesson.create!(lesson_params)
-        render json: lesson, status: :created
+        render json: lesson, status: :accepted
     end
 
     private
 
     def lesson_params 
-        params.permit(:room_num, :start_time, :repeat, :user_id, :teacher_id)
+        params.require(:lesson).permit(:room_num, :start_time, :teacher_id)
     end
 
     def render_not_found_response 

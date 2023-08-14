@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState, useContext } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import NavBar from './NavBar';
@@ -9,7 +7,7 @@ import SignUp from './SignUp';
 import Home from './Home';
 import BookLesson from './BookLesson';
 import Lessons from './Lessons';
-import Bookings from './Bookings';
+import ManageBookings from './ManageBookings';
 import { UserProvider } from './contexts/UserContext';
 
 function App() {
@@ -57,7 +55,10 @@ useEffect(() => {
           <Route exact path="/sign_up" element = {<SignUp />}/>
           <Route exact path="/book" element = {<BookLesson />}/>
           <Route exact path="/lessons" element = {<Lessons lessons={lessons} setLessons={setLessons} />}/>
-          <Route exact path="/manage" element = {<Bookings />}/>
+          <Route exact path="/manage" element = 
+          {<ManageBookings 
+          lessons={lessons} 
+          setLessons={setLessons} />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>

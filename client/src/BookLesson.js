@@ -8,11 +8,9 @@ function BookLesson() {
 
 
     const [formData, setFormData] = useState({
-        fullName: '',
-        email: '',
-        roomNumber: '',
-        teacher: '',
-        lessonTime: '',
+        room_num: '',
+        teacher_id: '',
+        start_time: '',
         })
 
         const { isLoggedIn } = useContext(UserContext)
@@ -37,15 +35,34 @@ function BookLesson() {
         ]
 
     const teacherOptions = [
-        { key: 'teacher1', text: 'Alyssa Edwards', value: 'Teacher 1' },
-        { key: 'teacher2', text: 'Blair St. Clair', value: 'Teacher 2' },
-        { key: 'teacher3', text: 'Miss Naomi', value: 'Teacher 3' }
+        { key: 'teacher1', text: 'Alyssa Edwards', value: 1 },
+        { key: 'teacher2', text: 'Blair St. Clair', value: 2 },
+        { key: 'teacher3', text: 'Miss Naomi', value: 3}
         ]
 
-    function handleSubmit() {
-
-    }
-
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetch('/lessons', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+            })
+            .then(data => {
+            // Handle success, maybe show a success message or redirect
+            })
+            .catch(error => {
+            // Handle error, maybe display an error message
+            });
+        }
+    
     function handleChange(event, { name, value }) {
         setFormData({
             ...formData,
@@ -59,34 +76,13 @@ function BookLesson() {
             <h2 className = 'booking-header'> book a private lesson today:</h2>
         <div className='booking-form'>
             
-            <Form onSubmit={handleSubmit}>
-        <Form.Field>
-        <label>full name</label>
-        <Input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-        />
-        </Form.Field>
-        <Form.Field>
-        <label>username</label>
-        <Input
-            type="email"
-            name="email"
-            placeholder="use your email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-        />
-        </Form.Field>
+        <Form onSubmit={handleSubmit}>
         <Form.Field>
         <label>room number:</label>
         <Dropdown
             placeholder="select room number"
-            name="roomNumber"
-            value={formData.roomNumber}
+            name="room_num"
+            value={formData.room_num}
             onChange={handleChange}
             fluid
             selection
@@ -98,8 +94,8 @@ function BookLesson() {
         <label>teacher:</label>
         <Dropdown
             placeholder="select teacher"
-            name="teacher"
-            value={formData.teacher}
+            name="teacher_id"
+            value={formData.teacher_id}
             onChange={handleChange}
             fluid
             selection
@@ -111,8 +107,8 @@ function BookLesson() {
         <label>lesson time</label>
         <Input
             type="time"
-            name="lessonTime"
-            value={formData.lessonTime}
+            name="start_time"
+            value={formData.start_time}
             onChange={handleChange}
             required
         />
