@@ -48,7 +48,7 @@ import { List, Button, Input } from 'semantic-ui-react'
                     value={updatedTime[lesson.id] || lesson.start_time}
                     onChange={event => handleChange(lesson.id, event.target.value)}
                   />
-                  <Button onClick={() => handleUpdateTime(lesson.id)}>update time</Button>
+                  <Button onClick={() => handleUpdateTime(lesson.id, updatedTime[lesson.id])}>update time</Button>
                   <Button onClick={() => handleCancelLesson(lesson.id)}>cancel</Button>
                 </List.Description>
               </List.Content>

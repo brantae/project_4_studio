@@ -39,6 +39,8 @@ module Project4Studio
       end
     end
 
+    config.time_zone = 'Central Time (US & Canada)'
+
 
     # Configuration for the application, engines, and railties goes here.
     #

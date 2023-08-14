@@ -19,7 +19,11 @@ console.log(window.React1 === window.React2);
 const [lessons, setLessons] = useState([])
 
 
-
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+  return date.toLocaleTimeString(undefined, options);
+}
 
 useEffect(() => {
     const fetchLessons = () => {
@@ -39,6 +43,17 @@ useEffect(() => {
 }, [])
 
 function handleUpdateTime(lessonId, newTime) {
+  const currentTime = new Date();
+  const [hours, minutes] = newTime.split(":");
+  currentTime.setHours(parseInt(hours, 10));
+  currentTime.setMinutes(parseInt(minutes, 10));
+
+  const formattedTime = currentTime.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
   fetch(`/lessons/${lessonId}`, {
     method: 'PATCH',
     headers: {
@@ -46,21 +61,18 @@ function handleUpdateTime(lessonId, newTime) {
     },
     body: JSON.stringify({
       lesson: {
-        start_time: newTime
-      }
+        start_time: formattedTime,
+      },
     }),
   })
     .then(response => response.json())
-    .then(updatedLesson => {
-      setLessons(prevLessons => {
-        return prevLessons.map(lesson => {
-          if (lesson.id === updatedLesson.id) {
-            return { ...lesson, start_time: updatedLesson.start_time };
-          }
-          return lesson;
-        });
-      });
-    })
+    .then(updatedData => {
+      const updatedLesson = updatedData.lesson;
+      const updatedLessons = lessons.map(lesson =>
+        lesson.id === updatedLesson.id ? { ...lesson, start_time: updatedLesson.start_time } : lesson
+      );
+      setLessons(updatedLessons);
+    });
   }
 
 function handleCancelLesson(lessonId) {

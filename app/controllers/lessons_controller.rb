@@ -25,9 +25,12 @@ class LessonsController < ApplicationController
 
     def update 
         lesson = Lesson.find_by(id: params[:id])
+        
         lesson.update(lesson_params)
-        render json: lesson, status: :accepted
-    end
+          formatted_time = lesson.start_time.strftime('%I:%M %p %Z')
+          render json: { lesson: lesson, formatted_start_time: formatted_time }, status: :accepted
+
+      end
 
     def destroy 
         lesson = Lesson.find_by(id: params[:id])
@@ -36,9 +39,9 @@ class LessonsController < ApplicationController
 
     private
 
-    def lesson_params 
-        params.permit(:room_num, :start_time, :teacher_id)
-    end
+    def lesson_params
+        params.require(:lesson).permit(:room_num, :start_time, :teacher_id) # Make sure to include any other permitted parameters
+      end
 
     def render_not_found_response 
         render json: { error: "Lesson not found" }, status: :not_found
