@@ -4,7 +4,7 @@ class LessonsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
-    wrap_parameters format: []
+    #wrap_parameters format: []
 
 
 
@@ -19,8 +19,13 @@ class LessonsController < ApplicationController
     end
 
     def create 
-        lesson = Lesson.create!(lesson_params)
+        lesson = Lesson.new(lesson_params)
+        lesson.user_id = session[:user_id]
+        if lesson.save
         render json: lesson, status: :accepted
+        else  
+            render json: { errors: lesson.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def update 
@@ -40,7 +45,7 @@ class LessonsController < ApplicationController
     private
 
     def lesson_params
-        params.require(:lesson).permit(:room_num, :start_time, :teacher_id, :user_id) # Make sure to include any other permitted parameters
+        params.permit(:room_num, :start_time, :teacher_id, :user_id)
       end
 
     def render_not_found_response 

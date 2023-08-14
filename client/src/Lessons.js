@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-export default function Lessons({ lessons, setLessons }) {
+  function TeachersBio({ lessons, setLessons }) {
 
     function formatTime(str) {
         const date = new Date(str)
@@ -17,15 +17,17 @@ export default function Lessons({ lessons, setLessons }) {
 
   return (
     <div>
-        <h1>Here is a list of currently booked lessons by our users below</h1>
+        <h1>See a list of our current teachers and some of their students</h1>
       {lessons.map(lesson => (
         <div key={lesson.id}>
             <h2>{lesson.teacher.specialty} class</h2>
             <p>taught by: {lesson.teacher.name}</p>
-            <p>repeats {lesson.repeat} at {formatTime(lesson.start_time)} for {lesson.class_length} minutes</p>
+            <p>{lesson.user.name}</p>
             <hr></hr>
             </div>
       ))}
     </div>
   )
 }
+
+export default TeachersBio

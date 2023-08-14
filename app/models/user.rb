@@ -9,7 +9,7 @@ class User < ApplicationRecord
         with: /\A[\w+\-.]+@[\w\-.]+\.com\z/i, message: "is not a valid email address" 
     }
     validates :username, uniqueness: {
-        message: "username is already taken"
+        message: "is already taken"
     }
 
 

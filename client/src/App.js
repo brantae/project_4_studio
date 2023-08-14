@@ -9,6 +9,7 @@ import BookLesson from './BookLesson';
 import Lessons from './Lessons';
 import ManageBookings from './ManageBookings';
 import { UserProvider } from './contexts/UserContext';
+import TeachersBio from './Lessons';
 
 function App() {
 
@@ -102,7 +103,7 @@ function handleCancelLesson(lessonId) {
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
           <Route exact path="/book" element = {<BookLesson addLesson={addLesson}/>}/>
-          <Route exact path="/lessons" element = {<Lessons lessons={lessons} setLessons={setLessons} />}/>
+          <Route exact path="/teachers" element = {<TeachersBio lessons={lessons} setLessons={setLessons} />}/>
           <Route exact path="/manage" element = 
           {<ManageBookings 
           lessons={lessons} 

@@ -1,7 +1,7 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
     include ActionController::Cookies
 
-    protect_from_forgery with: :null_session
+    #protect_from_forgery with: :null_session
 
     config.wrap_parameters format: [:json]
 

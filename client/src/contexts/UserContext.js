@@ -6,7 +6,11 @@ function UserProvider({children}) {
     
     const [currentUser, setCurrentUser] = useState({})
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [teachers, setTeachers] = useState([])
+    const [lessons, setLessons] = useState([])
 
+
+//GET '/me' to 'users#show'
     useEffect(() => {
         fetch('/me')
         .then(resp => resp.json())
@@ -21,19 +25,39 @@ function UserProvider({children}) {
         }) 
     }, [])
 
+    //GET '/teachers' to 'teachers#index'
+    useEffect(() => {
+        const fetchTeachers = () => {
+            fetch('/teachers')
+            .then((res) => {
+                console.log(res)
+                return res.json()
+            })
+            .then((data) => {
+                console.log(data)
+                setTeachers(data)
+            })
+            .catch((error) => console.error('Error fetching Teachers:', error));
+        }
+    
+        fetchTeachers()
+    }, [])
 
-    function login(user) {
-        setCurrentUser(user)
+//Login
+    function login(currentUser) {
+        setCurrentUser(currentUser)
         setIsLoggedIn(true)
     }
 
+//Logout
     function logout() {
         setCurrentUser({})
         setIsLoggedIn(false)
     }
 
-    function signup(user) {
-        setCurrentUser(user)
+//Signup
+    function signup(currentUser) {
+        setCurrentUser(currentUser)
         setIsLoggedIn(true)
     }
 

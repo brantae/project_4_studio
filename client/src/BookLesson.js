@@ -38,14 +38,14 @@ function BookLesson({addLesson}) {
         { key: 'teacher3', text: 'Miss Naomi', value: 3}
         ]
 
-    function handleSubmit(e) {
+    function handleAddLesson(e) {
         e.preventDefault()
         fetch('/lessons', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ lesson: {...formData, user_id: currentUser.id} })
+            body: JSON.stringify(formData)
             })
             .then(response => response.json())
             .then(data => {
@@ -71,7 +71,7 @@ function BookLesson({addLesson}) {
             <h2 className = 'booking-header'> book a private lesson today:</h2>
         <div className='booking-form'>
             
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleAddLesson}>
         <Form.Field>
         <label>room number:</label>
         <Dropdown
