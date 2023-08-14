@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { UserContext } from './contexts/UserContext'
 import { List, Button, Input } from 'semantic-ui-react'
-import { parse, format } from 'date-fns'
+
 
   function ManageBookings( {lessons, setLessons, handleUpdateTime, handleCancelLesson} ) {
     
@@ -12,6 +12,12 @@ import { parse, format } from 'date-fns'
 
     const handleChange = (lessonId, newTime) => {
       setUpdatedTime({ ...updatedTime, [lessonId]: newTime });
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+      return date.toLocaleTimeString(undefined, options);
     }
     
         if (!isLoggedIn) {
@@ -33,17 +39,17 @@ import { parse, format } from 'date-fns'
           {userBookedLessons.map(lesson => (
             <List.Item key={lesson.id}>
               <List.Content>
-                <List.Header>Room: {lesson.room_num}</List.Header>
+                <List.Header>room: {lesson.room_num}</List.Header>
                 <List.Description>
-                  <div>Teacher: {lesson.teacher.name}</div>
-                  <div>Start Time: {lesson.start_time}</div>
+                  <div>teacher: {lesson.teacher.name}</div>
+                  <div>start time: {formatDate(lesson.start_time)}</div>
                   <Input
                     type="time"
                     value={updatedTime[lesson.id] || lesson.start_time}
                     onChange={event => handleChange(lesson.id, event.target.value)}
                   />
-                  <Button onClick={() => handleUpdateTime(lesson.id)}>Update Time</Button>
-                  <Button onClick={() => handleCancelLesson(lesson.id)}>Cancel</Button>
+                  <Button onClick={() => handleUpdateTime(lesson.id)}>update time</Button>
+                  <Button onClick={() => handleCancelLesson(lesson.id)}>cancel</Button>
                 </List.Description>
               </List.Content>
             </List.Item>
