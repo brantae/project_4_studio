@@ -6,10 +6,10 @@ import Error from "./Error";
 import SignUp from './SignUp';
 import Home from './Home';
 import BookLesson from './BookLesson';
-import Lessons from './Lessons';
+import Teachers from './Teachers';
 import ManageBookings from './ManageBookings';
 import { UserProvider } from './contexts/UserContext';
-import TeachersBio from './Lessons';
+import TeachersBio from './Teachers';
 
 function App() {
 
@@ -22,11 +22,11 @@ const addLesson = (newLesson) => {
   setLessons([...lessons, newLesson]);
 }
 
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-  return date.toLocaleTimeString(undefined, options);
-}
+// function formatDate(dateString) {
+//   const date = new Date(dateString);
+//   const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+//   return date.toLocaleTimeString(undefined, options);
+// }
 
 useEffect(() => {
     const fetchLessons = () => {
@@ -103,7 +103,7 @@ function handleCancelLesson(lessonId) {
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
           <Route exact path="/book" element = {<BookLesson addLesson={addLesson}/>}/>
-          <Route exact path="/teachers" element = {<TeachersBio lessons={lessons} setLessons={setLessons} />}/>
+          <Route exact path="/teachers" element = {<Teachers />}/>
           <Route exact path="/manage" element = 
           {<ManageBookings 
           lessons={lessons} 

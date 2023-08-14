@@ -37,7 +37,7 @@ function NavBar() {
         return (
         <nav className = 'nav'>
         <Link to="/"> home </Link>
-        <Link to="/lessons"> lessons </Link>
+        <Link to="/teachers"> teachers </Link>
         <Link to="/book"> book lesson </Link>
         <Link to="/manage"> manage bookings </Link>
 </nav>
