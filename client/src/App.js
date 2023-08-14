@@ -17,7 +17,9 @@ window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
 const [lessons, setLessons] = useState([])
-
+const addLesson = (newLesson) => {
+  setLessons([...lessons, newLesson]);
+}
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -99,7 +101,7 @@ function handleCancelLesson(lessonId) {
           <Route exact path="/" element = {<Home />} />
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
-          <Route exact path="/book" element = {<BookLesson />}/>
+          <Route exact path="/book" element = {<BookLesson addLesson={addLesson}/>}/>
           <Route exact path="/lessons" element = {<Lessons lessons={lessons} setLessons={setLessons} />}/>
           <Route exact path="/manage" element = 
           {<ManageBookings 

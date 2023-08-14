@@ -17,7 +17,7 @@ function UserProvider({children}) {
             } else {
             setIsLoggedIn(true)
             setCurrentUser(data)
-            }
+        }
         }) 
     }, [])
 

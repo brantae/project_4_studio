@@ -11,13 +11,13 @@ import { List, Button, Input } from 'semantic-ui-react'
     const userBookedLessons = lessons.filter(lesson => lesson.user_id === currentUser.id)
 
     const handleChange = (lessonId, newTime) => {
-      setUpdatedTime({ ...updatedTime, [lessonId]: newTime });
+      setUpdatedTime({ ...updatedTime, [lessonId]: newTime })
     }
 
     function formatDate(dateString) {
-      const date = new Date(dateString);
-      const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-      return date.toLocaleTimeString(undefined, options);
+      const date = new Date(dateString)
+      const options = { hour: 'numeric', minute: 'numeric', hour12: true }
+      return date.toLocaleTimeString(undefined, options)
     }
     
         if (!isLoggedIn) {

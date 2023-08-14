@@ -3,17 +3,15 @@ import { Form, Input, Button, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { UserContext } from './contexts/UserContext'
 
-function BookLesson() {
+function BookLesson({addLesson}) {
     
-
-
     const [formData, setFormData] = useState({
         room_num: '',
         teacher_id: '',
         start_time: '',
         })
 
-        const { isLoggedIn } = useContext(UserContext)
+    const { isLoggedIn, currentUser } = useContext(UserContext)
     
         if (!isLoggedIn) {
             return (
@@ -47,20 +45,17 @@ function BookLesson() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify({ lesson: {...formData, user_id: currentUser.id} })
             })
-            .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-            // Handle success, maybe show a success message or redirect
+            console.log('lesson booked', data)
+                addLesson(data.lesson)
             })
             .catch(error => {
-            // Handle error, maybe display an error message
-            });
+            
+            console.log('error', error)
+            })
         }
     
     function handleChange(event, { name, value }) {

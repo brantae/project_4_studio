@@ -40,7 +40,7 @@ class LessonsController < ApplicationController
     private
 
     def lesson_params
-        params.require(:lesson).permit(:room_num, :start_time, :teacher_id) # Make sure to include any other permitted parameters
+        params.require(:lesson).permit(:room_num, :start_time, :teacher_id, :user_id) # Make sure to include any other permitted parameters
       end
 
     def render_not_found_response 
