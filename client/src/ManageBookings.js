@@ -6,6 +6,7 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
 
   function ManageBookings( {lessons, setLessons, handleCancelLesson, handleChangeTeacher} ) {
     
+    const [errors, setErrors] = useState({})
     
     const { currentUser, isLoggedIn, teachers, setTeachers } = useContext(UserContext)
     const userBookedLessons = lessons.filter(lesson => lesson.user_id === currentUser.id)
@@ -32,6 +33,9 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
   return (
     <div>
       <h2>your booked lessons</h2>
+      {userBookedLessons.length === 0 ? (
+        <p>you have no lessons to manage!</p>
+      ) : (
       <List divided relaxed>
           {userBookedLessons.map(lesson => (
             <List.Item key={lesson.id}>
@@ -60,6 +64,7 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
             </List.Item>
           ))}
         </List>
+        )}
     </div>
   );
 }

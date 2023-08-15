@@ -10,6 +10,8 @@ function BookLesson({addLesson}) {
         teacher_id: '',
         start_time: '',
         })
+        const [errors, setErrors] = useState([])
+        const [success, setSuccess] = useState(false)
 
     const { isLoggedIn, currentUser, teachers, setTeachers } = useContext(UserContext)
     
@@ -49,12 +51,24 @@ function BookLesson({addLesson}) {
             })
             .then(response => response.json())
             .then(data => {
-            console.log('lesson booked', data)
-                addLesson(data)
-            })
-            .catch(error => {
-            
-            console.log('error', error)
+                if(data.errors) {
+                    console.log(data.errors[0])
+                    setErrors(data.errors[0])
+                    setFormData({
+                        room_num: '',
+                        teacher_id: '',
+                        start_time: '',
+                        })
+                } else {
+                    addLesson(data)
+                    setFormData({
+                        room_num: '',
+                        teacher_id: '',
+                        start_time: '',
+                        })
+                    setSuccess(true)
+                    setErrors([])
+                }
             })
         }
     
@@ -107,6 +121,15 @@ function BookLesson({addLesson}) {
             onChange={handleChange}
             required
         />
+        {errors.length > 0 && (
+    <div className="ui negative message">{errors}</div>
+    )}
+    {success && (
+        <div className="ui positive message">
+            <div className="header">Success</div>
+            <p>Lesson successfully booked!</p>
+        </div>
+        )}
         </Form.Field>
         <Button type="submit">book a lesson</Button>
     </Form>
