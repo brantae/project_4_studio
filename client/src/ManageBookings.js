@@ -1,30 +1,15 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { UserContext } from './contexts/UserContext'
-import { List, Button, Input } from 'semantic-ui-react'
+import { List, Button, Dropdown } from 'semantic-ui-react'
 
 
-  function ManageBookings( {lessons, setLessons, handleUpdateTime, handleCancelLesson} ) {
+  function ManageBookings( {lessons, setLessons, handleCancelLesson, handleChangeTeacher} ) {
     
-    const [updatedTime, setUpdatedTime] = useState([])
-    const { currentUser, isLoggedIn } = useContext(UserContext)
+    
+    const { currentUser, isLoggedIn, teachers, setTeachers } = useContext(UserContext)
     const userBookedLessons = lessons.filter(lesson => lesson.user_id === currentUser.id)
 
-
-    useEffect(() => {
-      const initialUpdatedTime = {};
-      for (const lesson of lessons) {
-        if (lesson.user_id === currentUser.id) {
-          const startTime = lesson.start_time.split("T")[1].slice(0, 5);
-          initialUpdatedTime[lesson.id] = startTime;
-        }
-      }
-      setUpdatedTime(initialUpdatedTime);
-    }, [lessons, currentUser.id]);
-
-    const handleChange = (lessonId, newTime) => {
-      setUpdatedTime({ ...updatedTime, [lessonId]: newTime })
-    }
 
     function formatDate(dateString) {
       const date = new Date(dateString)
@@ -50,17 +35,25 @@ import { List, Button, Input } from 'semantic-ui-react'
       <List divided relaxed>
           {userBookedLessons.map(lesson => (
             <List.Item key={lesson.id}>
-              <List.Content>
-                <List.Header>room: {lesson.room_num}</List.Header>
-                <List.Description>
-                  <div>teacher: {lesson.teacher.name}</div>
-                  <div>start time: {formatDate(lesson.start_time)}</div>
-                  <Input
-                    type="time"
-                    value={updatedTime[lesson.id] || lesson.start_time}
-                    onChange={event => handleChange(lesson.id, event.target.value)}
-                  />
-                  <Button onClick={() => handleUpdateTime(lesson.id, updatedTime[lesson.id])}>update time</Button>
+<List.Content>
+              <List.Header>room: {lesson.room_num}</List.Header>
+              <List.Description>
+                <div>teacher: {lesson.teacher.name}</div>
+                <div>start time: {formatDate(lesson.start_time)}</div>
+                <Dropdown
+                  placeholder="Select Instructor"
+                  fluid
+                  selection
+                  options={teachers.map(teacher => ({
+                    key: teacher.id,
+                    text: teacher.name,
+                    value: teacher.id,
+                  }))}
+                  value={lesson.teacher.id}
+                  onChange={(event, data) =>
+                    handleChangeTeacher(lesson.id, data.value)
+                  }
+                />
                   <Button onClick={() => handleCancelLesson(lesson.id)}>cancel</Button>
                 </List.Description>
               </List.Content>

@@ -4,7 +4,7 @@ class LessonsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
-    #wrap_parameters format: []
+    wrap_parameters format: []
 
 
 
@@ -32,10 +32,8 @@ class LessonsController < ApplicationController
         lesson = Lesson.find_by(id: params[:id])
         
         lesson.update(lesson_params)
-          formatted_time = lesson.start_time.strftime('%I:%M %p %Z')
-          render json: { lesson: lesson, formatted_start_time: formatted_time }, status: :accepted
-
-      end
+        render json: { lesson: lesson }, include: :teacher, status: :accepted
+    end
 
     def destroy 
         lesson = Lesson.find_by(id: params[:id])
@@ -45,8 +43,8 @@ class LessonsController < ApplicationController
     private
 
     def lesson_params
-        params.permit(:room_num, :start_time, :teacher_id)
-      end
+        params.require(:lesson).permit(:room_num, :start_time, :teacher_id)
+    end
 
     def render_not_found_response 
         render json: { error: "Lesson not found" }, status: :not_found

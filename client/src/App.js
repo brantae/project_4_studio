@@ -9,7 +9,6 @@ import BookLesson from './BookLesson';
 import Teachers from './Teachers';
 import ManageBookings from './ManageBookings';
 import { UserProvider } from './contexts/UserContext';
-import TeachersBio from './Teachers';
 
 function App() {
 
@@ -21,12 +20,6 @@ const [lessons, setLessons] = useState([])
 const addLesson = (newLesson) => {
   setLessons([...lessons, newLesson]);
 }
-
-// function formatDate(dateString) {
-//   const date = new Date(dateString);
-//   const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-//   return date.toLocaleTimeString(undefined, options);
-// }
 
 useEffect(() => {
     const fetchLessons = () => {
@@ -45,21 +38,7 @@ useEffect(() => {
     fetchLessons()
 }, [])
 
-function handleUpdateTime(lessonId, newTime) {
-  const currentTime = new Date();
-  const [hours, minutes] = newTime.split(":");
-  currentTime.setHours(parseInt(hours, 10));
-  currentTime.setMinutes(parseInt(minutes, 10));
-
-  const formattedTime = currentTime.toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
-  console.log("Updating lesson with ID:", lessonId);
-  console.log("New time:", formattedTime);
-
+function handleChangeTeacher(lessonId, newTeacherId) {
   fetch(`/lessons/${lessonId}`, {
     method: 'PATCH',
     headers: {
@@ -67,25 +46,25 @@ function handleUpdateTime(lessonId, newTime) {
     },
     body: JSON.stringify({
       lesson: {
-        start_time: formattedTime,
+        teacher_id: newTeacherId,
       },
     }),
   })
     .then(response => response.json())
     .then(updatedData => {
-      console.log("Updated data from server:", updatedData);
-
+      console.log('Updated data from server:', updatedData)
       const updatedLesson = updatedData.lesson;
-      console.log("Updated lesson:", updatedLesson);
-
+      console.log('Updated lesson:', updatedLesson)
       const updatedLessons = lessons.map(lesson =>
-        lesson.id === updatedLesson.id ? { ...lesson, start_time: updatedLesson.start_time } : lesson
+        lesson.id === updatedLesson.id ? { ...lesson, teacher: updatedLesson.teacher } : lesson
       );
-      console.log("Updated lessons array:", updatedLessons);
-
+      console.log('Updated lessons array:', updatedLessons)
       setLessons(updatedLessons);
+    })
+    .catch(error => {
+      console.error('Error updating teacher:', error);
     });
-  }
+}
 
 function handleCancelLesson(lessonId) {
   fetch(`/lessons/${lessonId}`, {
@@ -117,8 +96,8 @@ function handleCancelLesson(lessonId) {
           {<ManageBookings 
           lessons={lessons} 
           setLessons={setLessons}
-          handleUpdateTime={(lessonId, newTime) => handleUpdateTime(lessonId, newTime, setLessons)}
-          handleCancelLesson={handleCancelLesson} />}/>
+          handleCancelLesson={handleCancelLesson}
+          handleChangeTeacher={handleChangeTeacher} />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>
