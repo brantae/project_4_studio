@@ -45,7 +45,7 @@ function BookLesson({addLesson}) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify({lesson: formData})
             })
             .then(response => response.json())
             .then(data => {
