@@ -8,6 +8,7 @@ function UserProvider({children}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [teachers, setTeachers] = useState([])
     const [lessons, setLessons] = useState([])
+    
 
 
 //GET '/me' to 'users#show'

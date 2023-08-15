@@ -57,6 +57,9 @@ function handleUpdateTime(lessonId, newTime) {
     hour12: true,
   });
 
+  console.log("Updating lesson with ID:", lessonId);
+  console.log("New time:", formattedTime);
+
   fetch(`/lessons/${lessonId}`, {
     method: 'PATCH',
     headers: {
@@ -70,10 +73,16 @@ function handleUpdateTime(lessonId, newTime) {
   })
     .then(response => response.json())
     .then(updatedData => {
+      console.log("Updated data from server:", updatedData);
+
       const updatedLesson = updatedData.lesson;
+      console.log("Updated lesson:", updatedLesson);
+
       const updatedLessons = lessons.map(lesson =>
         lesson.id === updatedLesson.id ? { ...lesson, start_time: updatedLesson.start_time } : lesson
       );
+      console.log("Updated lessons array:", updatedLessons);
+
       setLessons(updatedLessons);
     });
   }
@@ -108,7 +117,7 @@ function handleCancelLesson(lessonId) {
           {<ManageBookings 
           lessons={lessons} 
           setLessons={setLessons}
-          handleUpdateTime={handleUpdateTime}
+          handleUpdateTime={(lessonId, newTime) => handleUpdateTime(lessonId, newTime, setLessons)}
           handleCancelLesson={handleCancelLesson} />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>

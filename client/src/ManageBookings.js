@@ -10,6 +10,18 @@ import { List, Button, Input } from 'semantic-ui-react'
     const { currentUser, isLoggedIn } = useContext(UserContext)
     const userBookedLessons = lessons.filter(lesson => lesson.user_id === currentUser.id)
 
+
+    useEffect(() => {
+      const initialUpdatedTime = {};
+      for (const lesson of lessons) {
+        if (lesson.user_id === currentUser.id) {
+          const startTime = lesson.start_time.split("T")[1].slice(0, 5);
+          initialUpdatedTime[lesson.id] = startTime;
+        }
+      }
+      setUpdatedTime(initialUpdatedTime);
+    }, [lessons, currentUser.id]);
+
     const handleChange = (lessonId, newTime) => {
       setUpdatedTime({ ...updatedTime, [lessonId]: newTime })
     }

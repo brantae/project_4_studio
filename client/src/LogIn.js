@@ -7,8 +7,8 @@ function LogIn() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    //const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const { login } = useContext(UserContext)
 
@@ -23,27 +23,14 @@ function LogIn() {
                 username: username, 
                 password: password }),
         })
-        .then((res) => res.json())
-        .then((userData) => login(userData))
-            // .then((response) => {
-            //     if (response.ok) {
-            //     return response.json()
-            //     } else if (response.status === 422) {
-            //     return response.json().then((responseJson) => {
-            //         setError(responseJson.errors.join(', '))
-            //         throw new Error('Validation error')
-            //     });
-            //     } else {
-            //     setError('Login failed. Please check your credentials.')
-            //     throw new Error('Login failed')
-            //     }
-            // })
-            // .then((userData) => {
-            //     login(userData)
-            // })
-            // .catch((error) => {
-            //     setError('An error occurred during login.')
-            // })
+        .then((resp) => {
+            if (resp.ok) {
+                resp.json().then((userData) => login(userData))
+            } else {
+                resp.json().then((errorData) => setErrors(errorData.errors))
+            }
+        })
+            
         }
 
     
@@ -76,6 +63,13 @@ function LogIn() {
                 />
             </Form.Field>
         </Form.Field>
+        {errors.length > 0 && (
+    <ul style={{ color: "red" }}>
+      {errors.map((error) => (
+        <li key={error}>{error}</li>
+      ))}
+    </ul>
+  )}
             <Button 
             type="submit"
             primary

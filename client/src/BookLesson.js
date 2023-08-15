@@ -11,7 +11,7 @@ function BookLesson({addLesson}) {
         start_time: '',
         })
 
-    const { isLoggedIn, currentUser } = useContext(UserContext)
+    const { isLoggedIn, currentUser, teachers, setTeachers } = useContext(UserContext)
     
         if (!isLoggedIn) {
             return (
@@ -32,11 +32,11 @@ function BookLesson({addLesson}) {
         { key: '5', text: '5', value: '5' }
         ]
 
-    const teacherOptions = [
-        { key: 'teacher1', text: 'Alyssa Edwards', value: 1 },
-        { key: 'teacher2', text: 'Blair St. Clair', value: 2 },
-        { key: 'teacher3', text: 'Miss Naomi', value: 3}
-        ]
+
+    const teacherOptions = teachers.map((teacher) => {
+        return {key: teacher.id, text: teacher.name, value: teacher.id}
+    })
+
 
     function handleAddLesson(e) {
         e.preventDefault()
@@ -50,7 +50,7 @@ function BookLesson({addLesson}) {
             .then(response => response.json())
             .then(data => {
             console.log('lesson booked', data)
-                addLesson(data.lesson)
+                addLesson(data)
             })
             .catch(error => {
             
