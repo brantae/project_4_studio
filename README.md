@@ -1,24 +1,48 @@
-# README
+# The Studio
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to The Studio! This application allows users to book private dance lessons with teachers of various disciplines and manage their bookings.
 
-Things you may want to cover:
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Technologies](#technologies)
 
-* Ruby version
+## Features
 
-* System dependencies
+- User authentication and registration.
+- Browse available dance teachers and their specialties, as well as their current students.
+- Book private dance lessons with your preferred teacher.
+- Manage your booked lessons and cancel them or update the time if needed.
+- View booked lessons' details such as room number, teacher, and start time.
+- Error handling and user-friendly messages.
 
-* Configuration
+## Installation
 
-* Database creation
+1. Clone this repository to your local machine:
 
-* Database initialization
+   ```sh
+   $ git clone https://github.com/brantae/project_4_studio.git
 
-* How to run the test suite
+2. Enter the directory and open in VSCode
 
-* Services (job queues, cache servers, search engines, etc.)
+   ```sh
+    $ cd project_4_studio
+    $ code .
 
-* Deployment instructions
+3. Install dependencies
 
-* ...
+   ```sh
+   $ bundle install
+   $ npm install
+
+4. Start client and server
+    ```sh
+    $ npm start --prefix client 
+    $ rails server
+
+## Technologies
+
+- React.js
+- Ruby on Rails
+- Semantic UI React
+- SQLite3
