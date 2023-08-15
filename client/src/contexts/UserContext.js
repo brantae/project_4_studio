@@ -7,7 +7,7 @@ function UserProvider({children}) {
     const [currentUser, setCurrentUser] = useState({})
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [teachers, setTeachers] = useState([])
-    const [lessons, setLessons] = useState([])
+    
     
 
 
