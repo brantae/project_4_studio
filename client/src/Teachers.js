@@ -4,7 +4,9 @@ import { Button, Card, Form, Header, Icon } from 'semantic-ui-react'
 
   function Teachers() {
 
-    const { teachers, setTeachers, errors, setErrors } = useContext(UserContext)
+    const [errors, setErrors] = useState([])
+
+    const { teachers, setTeachers } = useContext(UserContext)
 
     const [newTeacher, setNewTeacher] = useState({
       name: '',
