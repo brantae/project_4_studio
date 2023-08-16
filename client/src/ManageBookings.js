@@ -6,10 +6,14 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
 
   function ManageBookings( {lessons, setLessons, handleCancelLesson, handleChangeTeacher} ) {
     
-    const [errors, setErrors] = useState({})
     
-    const { currentUser, isLoggedIn, teachers, setTeachers } = useContext(UserContext)
+    const { currentUser, isLoggedIn, teachers, userLessons, userTeachers } = useContext(UserContext)
     const userBookedLessons = lessons.filter(lesson => lesson.user_id === currentUser.id)
+    console.log(userBookedLessons)
+    console.log(currentUser)
+    console.log(userLessons)
+    console.log(userTeachers)
+    
 
 
     function formatDate(dateString) {

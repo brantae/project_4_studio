@@ -21,6 +21,8 @@ const addLesson = (newLesson) => {
   setLessons([...lessons, newLesson]);
 }
 
+const [bookedLessons, setBookedLessons] = useState([])
+
 useEffect(() => {
     const fetchLessons = () => {
         fetch('/lessons')
