@@ -4,7 +4,7 @@ const UserContext = React.createContext()
 
 function UserProvider({children}) {
     
-    const [currentUser, setCurrentUser] = useState({})
+    const [currentUser, setCurrentUser] = useState({lessons: []})
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [teachers, setTeachers] = useState([])
     const [userLessons, setUserLessons] = useState([])
@@ -18,10 +18,10 @@ function UserProvider({children}) {
         fetch('/me')
         .then(resp => resp.json())
         .then(data => {
-            console.log("fetched user data:", data)
+            // console.log("fetched user data:", data)
             // console.log("fetched users:", data.users)
-            // console.log("fetched lessons:", data.lessons)
-            // console.log("fetched teachers:", data.teachers)
+            // console.log("fetched user's lessons:", data.lessons)
+            // console.log("fetched user's teachers:", data.teachers)
             if (data.error) {
             setIsLoggedIn(false)
             setCurrentUser({})
@@ -40,11 +40,11 @@ function UserProvider({children}) {
         const fetchTeachers = () => {
             fetch('/teachers')
             .then((res) => {
-                console.log(res)
+                //console.log(res)
                 return res.json()
             })
             .then((data) => {
-                console.log("teacher data:", data)
+                //console.log("teacher data:", data)
                 setTeachers(data)
             })
             .catch((error) => console.error('Error fetching Teachers:', error));
@@ -74,7 +74,7 @@ function UserProvider({children}) {
 
 
     return (
-        <UserContext.Provider value={{ currentUser, login, logout, signup, isLoggedIn, teachers, setTeachers, userLessons, userTeachers }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser, login, logout, signup, isLoggedIn, teachers, setTeachers, userLessons, userTeachers }}>
         {children}
         </UserContext.Provider>
     )

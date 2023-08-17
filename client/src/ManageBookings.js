@@ -4,15 +4,12 @@ import { UserContext } from './contexts/UserContext'
 import { List, Button, Dropdown } from 'semantic-ui-react'
 
 
-  function ManageBookings( {lessons, setLessons, handleCancelLesson, handleChangeTeacher} ) {
+  function ManageBookings( {lessons, setLessons, handleCancelLesson} ) {
     
     
-    const { currentUser, isLoggedIn, teachers, userLessons, userTeachers } = useContext(UserContext)
-    const userBookedLessons = lessons.filter(lesson => lesson.user_id === currentUser.id)
+    const { currentUser, setCurrentUser, isLoggedIn, teachers, setTeachers } = useContext(UserContext)
+    const userBookedLessons = currentUser.lessons
     console.log(userBookedLessons)
-    console.log(currentUser)
-    console.log(userLessons)
-    console.log(userTeachers)
     
 
 
@@ -20,6 +17,64 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
       const date = new Date(dateString)
       const options = { hour: 'numeric', minute: 'numeric', hour12: true }
       return date.toLocaleTimeString(undefined, options)
+    }
+
+    function handleChangeTeacher(lessonId, newTeacherId) {
+      fetch(`/lessons/${lessonId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          lesson: {
+            teacher_id: newTeacherId,
+          },
+        }),
+      })
+        .then(response => response.json())
+        .then(updatedData => {
+          console.log('Updated data from server:', updatedData)
+          const updatedLessons = currentUser.lessons.map(lesson =>
+            lesson.id === updatedData.id ? updatedData : lesson
+          );
+          console.log(updatedLessons)
+          const updatedUser = {...currentUser, lessons: updatedLessons}
+          setCurrentUser(updatedUser)
+        })
+        .catch(error => {
+          console.error('Error updating teacher:', error);
+        });
+    }
+
+    function handleCancelLesson(lessonId, teacherId) {
+      fetch(`/lessons/${lessonId}`, {
+        method: 'DELETE'
+      })
+        .then(() => {
+          console.log("delete")
+          const updatedLessons = currentUser.lessons.filter(lesson =>
+            lesson.id !== lessonId
+          );
+          console.log(updatedLessons)
+          console.log('teacherId:', teacherId);
+          console.log('currentUser.id:', currentUser.id)
+
+          const updatedUser = {...currentUser, lessons: updatedLessons}
+            setCurrentUser(updatedUser)
+          const updatedTeachers = teachers.map(teacher => {
+            if (teacher.id === teacherId) {
+                const updatedUsers = teacher.users.filter(user => user.id !== currentUser.id);
+                return {
+                    ...teacher,
+                    users: updatedUsers
+                };
+            }
+            return teacher;
+            
+        });
+        console.log('updatedTeachers:', updatedTeachers)
+        setTeachers(updatedTeachers);
+        })
     }
     
         if (!isLoggedIn) {
@@ -46,7 +101,7 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
 <List.Content>
               <List.Header>room: {lesson.room_num}</List.Header>
               <List.Description>
-                <div>teacher: {lesson.teacher.name}</div>
+                <div>teacher: {lesson.teacher_name}</div>
                 <div>start time: {formatDate(lesson.start_time)}</div>
                 <Dropdown
                   placeholder="Select Instructor"
@@ -57,12 +112,12 @@ import { List, Button, Dropdown } from 'semantic-ui-react'
                     text: teacher.name,
                     value: teacher.id,
                   }))}
-                  value={lesson.teacher.id}
+                  value={lesson.teacher_id}
                   onChange={(event, data) =>
                     handleChangeTeacher(lesson.id, data.value)
                   }
                 />
-                  <Button onClick={() => handleCancelLesson(lesson.id)}>cancel</Button>
+                  <Button onClick={() => handleCancelLesson(lesson.id, lesson.teacher_id)}>cancel</Button>
                 </List.Description>
               </List.Content>
             </List.Item>

@@ -3,7 +3,7 @@ import { Form, Input, Button, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { UserContext } from './contexts/UserContext'
 
-function BookLesson({addLesson}) {
+function BookLesson({ handleChange }) {
     
     const [formData, setFormData] = useState({
         room_num: '',
@@ -13,7 +13,7 @@ function BookLesson({addLesson}) {
         const [errors, setErrors] = useState([])
         const [success, setSuccess] = useState(false)
 
-    const { isLoggedIn, currentUser, teachers, setTeachers } = useContext(UserContext)
+    const { isLoggedIn, currentUser, setCurrentUser, teachers, setTeachers } = useContext(UserContext)
     
         if (!isLoggedIn) {
             return (
@@ -50,17 +50,23 @@ function BookLesson({addLesson}) {
             body: JSON.stringify({lesson: formData})
             })
             .then(response => response.json())
-            .then(data => {
-                if(data.errors) {
-                    console.log(data.errors[0])
-                    setErrors(data.errors[0])
+            .then(newLesson => {
+                if(newLesson.errors) {
+                    console.log(newLesson.errors[0])
+                    setErrors(newLesson.errors[0])
                     setFormData({
                         room_num: '',
                         teacher_id: '',
                         start_time: '',
                         })
                 } else {
-                    addLesson(data)
+                    console.log("created lesson:", newLesson)
+                    //get lessons from current user
+                    //put new lesson into array of lessons
+                    const updatedLessons = [...currentUser.lessons, newLesson]
+                    const updatedUser = {...currentUser, lessons: updatedLessons}
+                    setCurrentUser(updatedUser)
+
                     setFormData({
                         room_num: '',
                         teacher_id: '',
@@ -68,6 +74,24 @@ function BookLesson({addLesson}) {
                         })
                     setSuccess(true)
                     setErrors([])
+                    console.log(teachers)
+                    const teacherId = formData.teacher_id 
+                    const updatedTeachers = teachers.map(teacher => {
+                        if (teacher.id === teacherId) {
+                            const updatedTeacher = {
+                                ...teacher,
+                                users: [...teacher.users, currentUser] // Assuming users array contains students
+                            };
+                            return updatedTeacher;
+                        }
+                        return teacher;
+                    });
+                    setTeachers(updatedTeachers);
+                    //when i add a lesson, update teachers state to add a student
+                    
+                    //go through teachers in teachers array to match id
+                    //update user in teachers
+
                 }
             })
         }

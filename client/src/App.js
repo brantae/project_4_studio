@@ -16,69 +16,91 @@ function App() {
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
-const [lessons, setLessons] = useState([])
-const addLesson = (newLesson) => {
-  setLessons([...lessons, newLesson]);
-}
+// const [lessons, setLessons] = useState([])
+// const addLesson = (newLesson) => {
+//   setLessons([...lessons, newLesson]);
+// }
 
-const [bookedLessons, setBookedLessons] = useState([])
+// const [formData, setFormData] = useState({
+//   room_num: '',
+//   teacher_id: '',
+//   start_time: '',
+//   })
+//   const [errors, setErrors] = useState([])
+//   const [success, setSuccess] = useState(false)
 
-useEffect(() => {
-    const fetchLessons = () => {
-        fetch('/lessons')
-        .then((res) => {
-            console.log(res)
-            return res.json()
-        })
-        .then((data) => {
-            console.log(data)
-            setLessons(data)
-        })
-        .catch((error) => console.error('Error fetching Lessons:', error));
-    }
 
-    fetchLessons()
-}, [])
 
-function handleChangeTeacher(lessonId, newTeacherId) {
-  fetch(`/lessons/${lessonId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      lesson: {
-        teacher_id: newTeacherId,
-      },
-    }),
-  })
-    .then(response => response.json())
-    .then(updatedData => {
-      console.log('Updated data from server:', updatedData)
-      const updatedLesson = updatedData.lesson;
-      console.log('Updated lesson:', updatedLesson)
-      const updatedLessons = lessons.map(lesson =>
-        lesson.id === updatedLesson.id ? { ...lesson, teacher: updatedLesson.teacher } : lesson
-      );
-      console.log('Updated lessons array:', updatedLessons)
-      setLessons(updatedLessons);
-    })
-    .catch(error => {
-      console.error('Error updating teacher:', error);
-    });
-}
+// useEffect(() => {
+//     const fetchLessons = () => {
+//         fetch('/lessons')
+//         .then((res) => {
+//             console.log(res)
+//             return res.json()
+//         })
+//         .then((data) => {
+//             console.log(data)
+//             setLessons(data)
+//         })
+//         .catch((error) => console.error('Error fetching Lessons:', error));
+//     }
 
-function handleCancelLesson(lessonId) {
-  fetch(`/lessons/${lessonId}`, {
-    method: 'DELETE'
-  })
-    .then(() => {
-      const updatedLessons = lessons.filter(lesson =>
-        lesson.id !== lessonId
-      );
-      setLessons(updatedLessons);
-    })
-}
+//     fetchLessons()
+// }, [])
+
+
+
+// function handleCancelLesson(lessonId) {
+//   fetch(`/lessons/${lessonId}`, {
+//     method: 'DELETE'
+//   })
+//     .then(() => {
+//       console.log("delete")
+//       // const updatedLessons = lessons.filter(lesson =>
+//       //   lesson.id !== lessonId
+//       // );
+//       // setLessons(updatedLessons);
+//     })
+// }
+// function handleAddLesson(e) {
+//   e.preventDefault()
+//   fetch('/lessons', {
+//       method: 'POST',
+//       headers: {
+//           'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({lesson: formData})
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//           if(data.errors) {
+//               console.log(data.errors[0])
+//               setErrors(data.errors[0])
+//               setFormData({
+//                   room_num: '',
+//                   teacher_id: '',
+//                   start_time: '',
+//                   })
+//           } else {
+//               // addLesson(data)
+//               setFormData({
+//                   room_num: '',
+//                   teacher_id: '',
+//                   start_time: '',
+//                   })
+//               setSuccess(true)
+//               setErrors([])
+//           }
+//       })
+//   }
+
+// function handleChange(event, { name, value }) {
+//   setFormData({
+//       ...formData,
+//       [name]: value,
+//       })
+
+
 
 
     
@@ -92,14 +114,20 @@ function handleCancelLesson(lessonId) {
           <Route exact path="/" element = {<Home />} />
           <Route exact path="/login" element = {<LogIn />} />
           <Route exact path="/sign_up" element = {<SignUp />}/>
-          <Route exact path="/book" element = {<BookLesson addLesson={addLesson}/>}/>
+          <Route exact path="/book" element = 
+          {<BookLesson 
+              // addLesson={addLesson}
+              // handleAddLesson={handleAddLesson} 
+              // handleChange={handleChange}
+              // errors={errors} 
+              // setErrors={setErrors} 
+              // formData={formData} 
+              // setFormData={setFormData} 
+              // success={success}
+              />}/>
           <Route exact path="/teachers" element = {<Teachers />}/>
           <Route exact path="/manage" element = 
-          {<ManageBookings 
-          lessons={lessons} 
-          setLessons={setLessons}
-          handleCancelLesson={handleCancelLesson}
-          handleChangeTeacher={handleChangeTeacher} />}/>
+          {<ManageBookings />}/>
           <Route path="/*" element={<Error />}/>
         </Routes>
       </Router>

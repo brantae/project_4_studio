@@ -5,7 +5,14 @@ class Lesson < ApplicationRecord
     validates :room_num, :start_time, presence: true
     validate :valid_start_time
 
-    private
+    def username 
+        self.user.name
+    end
+
+    def teacher_name
+        self.teacher.name
+    end
+
 
     #validates lesson.start_time to only be between 6 AM and 9 PM
     def valid_start_time

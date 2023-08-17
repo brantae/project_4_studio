@@ -32,7 +32,7 @@ class LessonsController < ApplicationController
         lesson = Lesson.find_by(id: params[:id])
         
         lesson.update(lesson_params)
-        render json: { lesson: lesson }, include: :teacher, status: :accepted
+        render json: lesson, include: :teacher, status: :accepted
     end
 
     def destroy 
