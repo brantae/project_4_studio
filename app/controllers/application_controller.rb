@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
     #protect_from_forgery with: :null_session
 
-    config.wrap_parameters format: [:json]
+    #config.wrap_parameters format: [:json]
 
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response

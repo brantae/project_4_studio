@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import { UserContext } from "./contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function LogIn() {
 
@@ -11,6 +12,7 @@ function LogIn() {
     const [errors, setErrors] = useState([])
 
     const { login } = useContext(UserContext)
+    const navigate = useNavigate()
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -26,6 +28,7 @@ function LogIn() {
         .then((resp) => {
             if (resp.ok) {
                 resp.json().then((userData) => login(userData))
+                navigate("/")
             } else {
                 resp.json().then((errorData) => setErrors(errorData.errors))
             }

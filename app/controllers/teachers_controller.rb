@@ -3,6 +3,7 @@ class TeachersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     #skip_before_action :authorize, only: :index
+    wrap_parameters format: []
 
     def index 
         teachers = Teacher.all 

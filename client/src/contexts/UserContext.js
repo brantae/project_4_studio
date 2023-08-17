@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect, } from 'react'
 
 const UserContext = React.createContext()
 
@@ -27,6 +27,7 @@ function UserProvider({children}) {
             setCurrentUser({})
             } else {
             setIsLoggedIn(true)
+
             setCurrentUser(data)
             setUserLessons(data.lessons)
             setUserTeachers(data.teachers)
